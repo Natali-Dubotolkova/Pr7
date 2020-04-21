@@ -15,36 +15,53 @@ namespace ColorPicker
         public int R;
         public int G;
         public int B;
+        public string hex;
         public Form1()
         {
             InitializeComponent();
             R = 125;
             G = 125;
             B = 125;
-            textBox1.BackColor = Color.FromArgb(R, G, B);
+            pictureBox1.BackColor = Color.FromArgb(R, G, B);
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             R = trackBar1.Value;
-            textBox1.BackColor = Color.FromArgb(R, G, B);
+            pictureBox1.BackColor = Color.FromArgb(R, G, B);
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             G = trackBar2.Value;
-            textBox1.BackColor = Color.FromArgb(R, G, B);
+            pictureBox1.BackColor = Color.FromArgb(R, G, B);
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             B = trackBar3.Value;
-            textBox1.BackColor = Color.FromArgb(R, G, B);
+            pictureBox1.BackColor = Color.FromArgb(R, G, B);
         }
 
-        private void textBox1_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            string hex = string.Format("#{0:X2}{1:X2}{2:X2}", R, G, B);
-            toolTip1.Show(hex, textBox1, 5000) ;
+            //"X2" indicates the string should be formatted in Hexadecimal
+            hex = string.Format("#{0:X2}{1:X2}{2:X2}", R, G, B);
+            toolTip1.Show(hex, pictureBox1, 2000) ;
+            
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Clipboard.SetText(hex);
+            string enter = Clipboard.GetText();
+            MessageBox.Show(enter, "Буфер обмена",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
